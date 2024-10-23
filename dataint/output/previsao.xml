@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Rows>
+<Row><IDLocal>3</IDLocal> <tempMin>10.3</tempMin> <tempMax>24.6</tempMax> <descTempo>Céu limpo</descTempo> <direcaoVento>NE</direcaoVento> <data>2024-10-22</data></Row>
+<Row><IDLocal>3</IDLocal> <tempMin>11.9</tempMin> <tempMax>25.7</tempMax> <descTempo>Céu pouco nublado</descTempo> <direcaoVento>SE</direcaoVento> <data>2024-10-23</data></Row>
+<Row><IDLocal>3</IDLocal> <tempMin>11.8</tempMin> <tempMax>22.4</tempMax> <descTempo>Aguaceiros/chuva</descTempo> <direcaoVento>SW</direcaoVento> <data>2024-10-24</data></Row>
+<Row><IDLocal>3</IDLocal> <tempMin>8.3</tempMin> <tempMax>16.5</tempMax> <descTempo>Céu parcialmente nublado</descTempo> <direcaoVento>NW</direcaoVento> <data>2024-10-25</data></Row>
+<Row><IDLocal>3</IDLocal> <tempMin>8.3</tempMin> <tempMax>17.5</tempMax> <descTempo>Aguaceiros/chuva fracos</descTempo> <direcaoVento>NW</direcaoVento> <data>2024-10-26</data></Row>
+</Rows>

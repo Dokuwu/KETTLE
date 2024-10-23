@@ -1,0 +1,290 @@
+[
+    {
+        "id": "880f6120dabb9bf1",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4d2ad7921c6aa28a",
+        "type": "MSSQL",
+        "z": "880f6120dabb9bf1",
+        "mssqlCN": "c5bf3a5fe9c8396b",
+        "name": "",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "SELECT * FROM Previsao \r\nJOIN LocalPrevisao ON LocalPrevisao.id = Previsao.Localid \r\nWHERE LocalPrevisao.nomeLocal = '${msg.payload}'`",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "msg",
+        "paramsOpt": "",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 400,
+        "y": 140,
+        "wires": [
+            [
+                "280dbbdd3655c57f"
+            ]
+        ]
+    },
+    {
+        "id": "718c970191c1dfb3",
+        "type": "ui_table",
+        "z": "880f6120dabb9bf1",
+        "group": "a235ca7bab20ef31",
+        "name": "Dados",
+        "order": 0,
+        "width": "16",
+        "height": "12",
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 710,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9c43fda387a35bbb",
+        "type": "inject",
+        "z": "880f6120dabb9bf1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Braga",
+        "payloadType": "str",
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "834db0d284571f17",
+                "8f74a550f2e5f70c"
+            ]
+        ]
+    },
+    {
+        "id": "280dbbdd3655c57f",
+        "type": "function",
+        "z": "880f6120dabb9bf1",
+        "name": "fix floats",
+        "func": "msg.payload = msg.payload.map(item => {\n    return {\n        id: item.id,\n        localId: item.localId,\n        data: new Date(item.data).toISOString().split('T')[0], // Formata a data no formato YYYY-MM-DD\n        tempMax: item.tempMax.toFixed(1),  // Formata para 1 casa decimal\n        tempMin: item.tempMin.toFixed(1),  // Formata para 1 casa decimal\n        direcaoVento: item.direcaoVento,   // Mantém como está, supondo que não precise de formatação\n        descTempo: item.descTempo           // Mantém como está, supondo que não precise de formatação\n    };\n});\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 140,
+        "wires": [
+            [
+                "718c970191c1dfb3"
+            ]
+        ]
+    },
+    {
+        "id": "834db0d284571f17",
+        "type": "function",
+        "z": "880f6120dabb9bf1",
+        "name": "query info Local",
+        "func": "msg.payload = `SELECT * FROM Previsao \nJOIN LocalPrevisao ON LocalPrevisao.id = Previsao.Localid \nWHERE LocalPrevisao.nomeLocal = '${msg.payload}'`;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "4d2ad7921c6aa28a"
+            ]
+        ]
+    },
+    {
+        "id": "8a69be1fb18b251a",
+        "type": "MSSQL",
+        "z": "880f6120dabb9bf1",
+        "mssqlCN": "c5bf3a5fe9c8396b",
+        "name": "",
+        "outField": "payload",
+        "returnType": 0,
+        "throwErrors": 1,
+        "query": "SELECT * FROM Previsao \r\nJOIN LocalPrevisao ON LocalPrevisao.id = Previsao.Localid \r\nWHERE LocalPrevisao.nomeLocal = '${msg.payload}'`",
+        "modeOpt": "queryMode",
+        "modeOptType": "query",
+        "queryOpt": "payload",
+        "queryOptType": "msg",
+        "paramsOpt": "",
+        "paramsOptType": "none",
+        "rows": "rows",
+        "rowsType": "msg",
+        "parseMustache": true,
+        "params": [],
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "60bb936221e2e4c4"
+            ]
+        ]
+    },
+    {
+        "id": "60bb936221e2e4c4",
+        "type": "function",
+        "z": "880f6120dabb9bf1",
+        "name": "fix floats",
+        "func": "msg.payload = msg.payload.map(item => {\n    return {\n        id: item.id,\n        nomeLocal: item.nomeLocal,\n        latitude: item.latitude.toFixed(1),  // Formata para 1 casa decimal\n        longitude: item.longitude.toFixed(1)  // Formata para 1 casa decimal\n    };\n});\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 380,
+        "wires": [
+            [
+                "5d097d5108dc4ead"
+            ]
+        ]
+    },
+    {
+        "id": "5d097d5108dc4ead",
+        "type": "ui_table",
+        "z": "880f6120dabb9bf1",
+        "group": "65511511c5089c00",
+        "name": "Dados",
+        "order": 0,
+        "width": "16",
+        "height": "12",
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 710,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2e40593657d3dbdc",
+        "type": "function",
+        "z": "880f6120dabb9bf1",
+        "name": "query info Previsao",
+        "func": "msg.payload = `SELECT * FROM LocalPrevisao WHERE nomeLocal = '${msg.payload}'`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 380,
+        "wires": [
+            [
+                "8a69be1fb18b251a"
+            ]
+        ]
+    },
+    {
+        "id": "8f74a550f2e5f70c",
+        "type": "delay",
+        "z": "880f6120dabb9bf1",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 80,
+        "y": 300,
+        "wires": [
+            [
+                "2e40593657d3dbdc"
+            ]
+        ]
+    },
+    {
+        "id": "c5bf3a5fe9c8396b",
+        "type": "MSSQL-CN",
+        "tdsVersion": "7_4",
+        "name": "",
+        "server": "localhost",
+        "port": "1433",
+        "encyption": true,
+        "trustServerCertificate": true,
+        "database": "isi_26003",
+        "useUTC": true,
+        "connectTimeout": "15000",
+        "requestTimeout": "15000",
+        "cancelTimeout": "5000",
+        "pool": "5",
+        "parseJSON": false,
+        "enableArithAbort": true,
+        "readOnlyIntent": false
+    },
+    {
+        "id": "a235ca7bab20ef31",
+        "type": "ui_group",
+        "name": "Dados",
+        "tab": "b055442188ce51b2",
+        "order": 1,
+        "disp": true,
+        "width": "16",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "65511511c5089c00",
+        "type": "ui_group",
+        "name": "Local",
+        "tab": "66654df14149b92a",
+        "order": 1,
+        "disp": true,
+        "width": "16",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b055442188ce51b2",
+        "type": "ui_tab",
+        "name": "Previsao",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "66654df14149b92a",
+        "type": "ui_tab",
+        "name": "Local",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
